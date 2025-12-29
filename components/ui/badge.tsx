@@ -2,7 +2,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 
 interface BadgeProps {
-    variant?: 'default' | 'success' | 'warning' | 'error';
+    variant?: 'default' | 'success' | 'warning' | 'error' | 'outline';
     children: React.ReactNode;
     className?: string;
 }
@@ -17,6 +17,7 @@ export const Badge: React.FC<BadgeProps> = ({
         success: 'bg-green-500/10 text-green-300 border-green-500/20',
         warning: 'bg-yellow-500/10 text-yellow-300 border-yellow-500/20',
         error: 'bg-red-500/10 text-red-300 border-red-500/20',
+        outline: 'bg-transparent text-white/70 border-white/20',
     };
 
     return (
