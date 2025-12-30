@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { CometCard } from '@/components/ui/comet-card';
+import { BackgroundGradient } from '@/components/ui/background-gradient';
 import { createClient } from '@/lib/supabase';
 import {
     DEMO_DATA_SAMPLES,
@@ -217,6 +218,32 @@ export default function ContributeData() {
             </header>
 
             <div className="relative z-10 max-w-4xl mx-auto px-6 py-12">
+                {/* Progress Bar */}
+                <div className="mb-12">
+                    <div className="flex justify-between text-xs uppercase tracking-wider text-white/40 mb-2 font-medium">
+                        <span>Step {step === 'type-select' ? 1 : step === 'demo-select' || step === 'custom-input' ? 2 : step === 'review-terms' ? 3 : 4} of 4</span>
+                        <span className="text-emerald-400">
+                            {step === 'type-select' && 'Select Type'}
+                            {(step === 'demo-select' || step === 'custom-input') && 'Input Data'}
+                            {step === 'review-terms' && 'Review Terms'}
+                            {step === 'confirmation' && 'Complete'}
+                        </span>
+                    </div>
+                    <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden backdrop-blur-sm border border-white/5">
+                        <div
+                            className="h-full bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.6)] transition-all duration-500 ease-out relative"
+                            style={{
+                                width: `${step === 'type-select' ? 25 :
+                                    step === 'demo-select' || step === 'custom-input' ? 50 :
+                                        step === 'review-terms' ? 75 : 100
+                                    }%`
+                            }}
+                        >
+                            <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white/20 to-transparent"></div>
+                        </div>
+                    </div>
+                </div>
+
                 {/* Step 1: Data Type Selection */}
                 {step === 'type-select' && (
                     <div>
@@ -275,22 +302,30 @@ export default function ContributeData() {
                                             <CometCard>
                                                 <button
                                                     onClick={() => handleDataTypeSelect(option.value as any, 'demo')}
-                                                    className="w-full text-left bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-xl p-5 hover:border-white/30 transition-all group"
+                                                    className="w-full text-left p-0 rounded-xl transition-all group"
                                                 >
-                                                    <div className="flex items-start gap-3 mb-3">
-                                                        <div className="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center flex-shrink-0">
-                                                            <svg className="w-5 h-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                                            </svg>
+                                                    <BackgroundGradient
+                                                        containerClassName="rounded-2xl [&>div.absolute]:rounded-[inherit]"
+                                                        className="rounded-xl bg-zinc-900"
+                                                        colors={["#064e3b", "#059669", "#10b981", "#34d399"]}
+                                                    >
+                                                        <div className="p-5">
+                                                            <div className="flex items-start gap-3 mb-3">
+                                                                <div className="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center flex-shrink-0">
+                                                                    <svg className="w-5 h-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                                                    </svg>
+                                                                </div>
+                                                                <div className="flex-1">
+                                                                    <div className="font-semibold text-white mb-1">Use Demo Sample</div>
+                                                                    <div className="text-sm text-white/50">Quick contribution with pre-made data</div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="inline-flex items-center gap-2 text-xs font-medium text-white/40 group-hover:text-white/60 group-hover:translate-x-1 transition-all">
+                                                                Select <span>→</span>
+                                                            </div>
                                                         </div>
-                                                        <div className="flex-1">
-                                                            <div className="font-semibold text-white mb-1">Use Demo Sample</div>
-                                                            <div className="text-sm text-white/50">Quick contribution with pre-made data</div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="inline-flex items-center gap-2 text-xs font-medium text-white/40 group-hover:text-white/60 group-hover:translate-x-1 transition-all">
-                                                        Select <span>→</span>
-                                                    </div>
+                                                    </BackgroundGradient>
                                                 </button>
                                             </CometCard>
 

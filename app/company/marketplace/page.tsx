@@ -71,6 +71,34 @@ export default function DatasetMarketplace() {
         setFilteredDatasets(filtered);
     }, [filter, sortBy, datasets]);
 
+    const getBadgeStyles = (type: string) => {
+        switch (type?.toLowerCase()) {
+            case 'mobility':
+            case 'sensor':
+                return 'bg-blue-500/10 text-blue-400 border-blue-500/20';
+            case 'finance':
+            case 'financial':
+                return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
+            case 'healthcare':
+            case 'medical':
+                return 'bg-rose-500/10 text-rose-400 border-rose-500/20';
+            case 'image':
+            case 'vision':
+                return 'bg-purple-500/10 text-purple-400 border-purple-500/20';
+            case 'text':
+            case 'language':
+                return 'bg-amber-500/10 text-amber-400 border-amber-500/20';
+            default:
+                return 'bg-white/[0.05] text-white/70 border-white/10';
+        }
+    };
+
+    const getQualityColor = (score: number) => {
+        if (score >= 90) return 'text-emerald-400';
+        if (score >= 70) return 'text-yellow-400';
+        return 'text-rose-400';
+    };
+
     if (loading) {
         return (
             <div className="min-h-screen bg-black relative overflow-hidden">
@@ -170,8 +198,8 @@ export default function DatasetMarketplace() {
                                 key={filterOption.id}
                                 onClick={() => setFilter(filterOption.id)}
                                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${filter === filterOption.id
-                                        ? 'bg-white text-black'
-                                        : 'bg-white/[0.02] text-white/60 hover:bg-white/[0.05] border border-white/10'
+                                    ? 'bg-white text-black'
+                                    : 'bg-white/[0.02] text-white/60 hover:bg-white/[0.05] border border-white/10'
                                     }`}
                             >
                                 {filterOption.label}
@@ -211,21 +239,21 @@ export default function DatasetMarketplace() {
                             <CometCard key={dataset.dataset_id}>
                                 <Link
                                     href={`/company/marketplace/${dataset.dataset_id}`}
-                                    className="block bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:border-white/30 transition-all h-full"
+                                    className="block bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:border-sky-500/30 hover:shadow-[0_0_20px_rgba(56,189,248,0.1)] transition-all h-full group relative overflow-hidden"
                                 >
                                     {/* Header */}
                                     <div className="flex items-start justify-between mb-4">
-                                        <Badge>{dataset.data_type}</Badge>
+                                        <Badge className={getBadgeStyles(dataset.data_type)}>{dataset.data_type}</Badge>
                                         <div className="text-right">
                                             <div className="text-xs text-white/40">Quality</div>
-                                            <div className="text-lg font-bold text-white">
+                                            <div className={`text-lg font-bold ${getQualityColor(dataset.quality_score || 0)}`}>
                                                 {dataset.quality_score?.toFixed(0) || 'N/A'}%
                                             </div>
                                         </div>
                                     </div>
 
                                     {/* Dataset Name */}
-                                    <h3 className="text-xl font-bold text-white mb-2">{dataset.name}</h3>
+                                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">{dataset.name}</h3>
                                     <p className="text-sm text-white/60 mb-4 line-clamp-2">{dataset.description}</p>
 
                                     {/* Stats Grid */}
@@ -246,13 +274,23 @@ export default function DatasetMarketplace() {
                                     <div className="flex items-center justify-between pt-4 border-t border-white/5">
                                         <div>
                                             <div className="text-xs text-white/40 mb-1">License Fee</div>
-                                            <div className="text-2xl font-bold text-white">
+                                            <div className="text-2xl font-bold bg-gradient-to-r from-sky-400 to-blue-500 bg-clip-text text-transparent">
                                                 ${dataset.price_per_license?.toLocaleString() || 0}
                                             </div>
                                         </div>
                                         <div className="text-xs text-white/40">
                                             Licensed {dataset.times_licensed || 0}×
                                         </div>
+                                    </div>
+
+                                    {/* Hover CTA */}
+                                    <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black via-black/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex items-end justify-center">
+                                        <span className="inline-flex items-center gap-2 px-4 py-2 bg-sky-500 text-white text-sm font-bold rounded-lg shadow-lg shadow-sky-500/20">
+                                            License Now
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                            </svg>
+                                        </span>
                                     </div>
                                 </Link>
                             </CometCard>

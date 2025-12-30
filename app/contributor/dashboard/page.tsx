@@ -7,6 +7,8 @@ import { CometCard } from '@/components/ui/comet-card';
 import { Badge } from '@/components/ui/badge';
 import { createClient } from '@/lib/supabase';
 import { StatCardSkeleton } from '@/components/ui/skeleton';
+import { ActivityChart } from '@/components/dashboard/activity-chart';
+import { BackgroundGradient } from '@/components/ui/background-gradient';
 
 export default function ContributorDashboard() {
     const router = useRouter();
@@ -176,7 +178,7 @@ export default function ContributorDashboard() {
                 {/* Welcome Section */}
                 <div className="mb-12">
                     <h1 className="text-4xl md:text-5xl font-bold text-white mb-3 tracking-tight">
-                        Welcome back, {contributorName}
+                        Welcome back, <span className="text-emerald-400">{contributorName}</span>
                     </h1>
                     <p className="text-white/50 text-lg">
                         Here's an overview of your data contributions and earnings
@@ -223,7 +225,7 @@ export default function ContributorDashboard() {
                             </div>
                             <div className="text-sm text-white/50 font-medium">Total Earnings</div>
                         </div>
-                        <div className="text-3xl font-bold text-white">${stats.totalEarnings.toFixed(2)}</div>
+                        <div className="text-3xl font-bold text-emerald-400">+${stats.totalEarnings.toFixed(2)}</div>
                     </div>
 
                     {/* Datasets I'm Part Of */}
@@ -240,32 +242,40 @@ export default function ContributorDashboard() {
                     </div>
                 </div>
 
+
+
                 {/* Quick Actions */}
                 <div className="mb-12">
                     <h2 className="text-2xl font-bold text-white mb-6">Quick Actions</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <CometCard>
                             <Link href="/contributor/contribute" className="block">
-                                <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all group">
-                                    <div className="w-14 h-14 bg-white/5 rounded-xl flex items-center justify-center mb-4">
-                                        <svg className="w-7 h-7 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4v16m8-8H4" />
-                                        </svg>
+                                <BackgroundGradient
+                                    containerClassName="rounded-2xl"
+                                    className="rounded-2xl bg-black"
+                                    colors={["#ffffff", "#71717a", "#27272a", "#52525b", "#18181b"]}
+                                >
+                                    <div className="bg-white/[0.02] backdrop-blur-xl rounded-2xl p-8 hover:bg-white/[0.04] transition-all group">
+                                        <div className="w-14 h-14 bg-white/5 rounded-xl flex items-center justify-center mb-4">
+                                            <svg className="w-7 h-7 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4v16m8-8H4" />
+                                            </svg>
+                                        </div>
+                                        <h3 className="text-xl font-bold text-white mb-2">Contribute New Data</h3>
+                                        <p className="text-white/50 text-sm mb-4">
+                                            Share your data sample and start earning
+                                        </p>
+                                        <div className="inline-flex items-center gap-2 text-sm font-semibold text-white/60 group-hover:text-white group-hover:translate-x-2 transition-all">
+                                            Get Started <span>→</span>
+                                        </div>
                                     </div>
-                                    <h3 className="text-xl font-bold text-white mb-2">Contribute New Data</h3>
-                                    <p className="text-white/50 text-sm mb-4">
-                                        Share your data sample and start earning
-                                    </p>
-                                    <div className="inline-flex items-center gap-2 text-sm font-semibold text-white/60 group-hover:text-white group-hover:translate-x-2 transition-all">
-                                        Get Started <span>→</span>
-                                    </div>
-                                </div>
+                                </BackgroundGradient>
                             </Link>
                         </CometCard>
 
                         <CometCard>
                             <Link href="/contributor/transparency" className="block">
-                                <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all group">
+                                <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all group h-full">
                                     <div className="w-14 h-14 bg-white/5 rounded-xl flex items-center justify-center mb-4">
                                         <svg className="w-7 h-7 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -288,19 +298,7 @@ export default function ContributorDashboard() {
                 <div>
                     <h2 className="text-2xl font-bold text-white mb-6">Recent Activity</h2>
                     <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-8">
-                        <div className="text-center py-8">
-                            <div className="w-16 h-16 bg-white/5 rounded-full mx-auto mb-4 flex items-center justify-center">
-                                <svg className="w-8 h-8 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                            <p className="text-white/50">
-                                {stats.totalContributions === 0
-                                    ? 'No activity yet. Contribute your first data sample to get started!'
-                                    : 'Activity timeline coming soon'
-                                }
-                            </p>
-                        </div>
+                        <ActivityChart />
                     </div>
                 </div>
             </div>

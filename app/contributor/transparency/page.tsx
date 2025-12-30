@@ -354,7 +354,7 @@ export default function TransparencyLog() {
                                                 </div>
                                             </div>
                                             <div className="text-right">
-                                                <div className="text-2xl font-bold text-white">+${payout.amount.toFixed(2)}</div>
+                                                <div className="text-2xl font-bold text-emerald-400">+${payout.amount.toFixed(2)}</div>
                                                 <div className="text-xs text-white/40">Per contribution share</div>
                                             </div>
                                         </div>
@@ -366,7 +366,7 @@ export default function TransparencyLog() {
                                     <div className="flex items-center justify-between">
                                         <div>
                                             <div className="text-white/50 text-sm mb-1">Total Earnings</div>
-                                            <div className="text-4xl font-bold text-white">
+                                            <div className="text-4xl font-bold text-emerald-400">
                                                 ${payouts.reduce((sum, p) => sum + p.amount, 0).toFixed(2)}
                                             </div>
                                         </div>

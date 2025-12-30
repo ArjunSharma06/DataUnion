@@ -55,6 +55,34 @@ export default function DatasetDetail() {
         }
     };
 
+    const getBadgeStyles = (type: string) => {
+        switch (type?.toLowerCase()) {
+            case 'mobility':
+            case 'sensor':
+                return 'bg-blue-500/10 text-blue-400 border-blue-500/20';
+            case 'finance':
+            case 'financial':
+                return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
+            case 'healthcare':
+            case 'medical':
+                return 'bg-rose-500/10 text-rose-400 border-rose-500/20';
+            case 'image':
+            case 'vision':
+                return 'bg-purple-500/10 text-purple-400 border-purple-500/20';
+            case 'text':
+            case 'language':
+                return 'bg-amber-500/10 text-amber-400 border-amber-500/20';
+            default:
+                return 'bg-white/[0.05] text-white/70 border-white/10';
+        }
+    };
+
+    const getQualityColor = (score: number) => {
+        if (score >= 90) return 'text-emerald-400';
+        if (score >= 70) return 'text-yellow-400';
+        return 'text-rose-400';
+    };
+
     if (loading) {
         return (
             <div className="min-h-screen bg-black flex items-center justify-center">
@@ -96,7 +124,7 @@ export default function DatasetDetail() {
                     <div className="flex items-center gap-4">
                         <Link
                             href="/company/marketplace"
-                            className="text-sm text-white/50 hover:text-white transition-colors"
+                            className="text-sm text-white/50 hover:text-sky-400 transition-colors"
                         >
                             ← Back to Marketplace
                         </Link>
@@ -110,7 +138,7 @@ export default function DatasetDetail() {
                     <div className="flex items-start justify-between mb-4">
                         <div className="flex-1">
                             <div className="flex items-center gap-3 mb-3">
-                                <Badge>{dataset.data_type}</Badge>
+                                <Badge className={getBadgeStyles(dataset.data_type)}>{dataset.data_type}</Badge>
                                 <span className="text-white/40">•</span>
                                 <span className="text-white/60 text-sm">{dataset.domain}</span>
                             </div>
@@ -122,7 +150,7 @@ export default function DatasetDetail() {
 
                         <div className="text-right ml-8">
                             <div className="text-sm text-white/40 mb-1">Quality Score</div>
-                            <div className="text-5xl font-bold text-white">
+                            <div className={`text-5xl font-bold ${getQualityColor(dataset.quality_score || 0)}`}>
                                 {dataset.quality_score?.toFixed(0) || 'N/A'}%
                             </div>
                         </div>
@@ -131,29 +159,50 @@ export default function DatasetDetail() {
 
                 {/* Stats Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-                    <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-6">
-                        <div className="text-white/40 text-sm mb-2">Total Samples</div>
+                    <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all">
+                        <div className="w-10 h-10 bg-sky-500/10 rounded-lg flex items-center justify-center mb-4">
+                            <svg className="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                            </svg>
+                        </div>
+                        <div className="text-white/40 text-sm mb-1">Total Samples</div>
                         <div className="text-3xl font-bold text-white">
                             {dataset.total_contributions?.toLocaleString() || 0}
                         </div>
                     </div>
 
-                    <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-6">
-                        <div className="text-white/40 text-sm mb-2">Contributors</div>
+                    <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all">
+                        <div className="w-10 h-10 bg-sky-500/10 rounded-lg flex items-center justify-center mb-4">
+                            <svg className="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </div>
+                        <div className="text-white/40 text-sm mb-1">Contributors</div>
                         <div className="text-3xl font-bold text-white">
                             {dataset.contributor_count || 0}
                         </div>
                     </div>
 
-                    <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-6">
-                        <div className="text-white/40 text-sm mb-2">Times Licensed</div>
+                    <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all">
+                        <div className="w-10 h-10 bg-sky-500/10 rounded-lg flex items-center justify-center mb-4">
+                            <svg className="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </div>
+                        <div className="text-white/40 text-sm mb-1">Times Licensed</div>
                         <div className="text-3xl font-bold text-white">
                             {dataset.times_licensed || 0}
                         </div>
                     </div>
 
-                    <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-6">
-                        <div className="text-white/40 text-sm mb-2">Avg Quality</div>
+                    <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all">
+                        <div className="w-10 h-10 bg-sky-500/10 rounded-lg flex items-center justify-center mb-4">
+                            <svg className="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div className="text-white/40 text-sm mb-1">Avg Quality</div>
                         <div className="text-3xl font-bold text-white">
                             {dataset.quality_score?.toFixed(0) || 0}%
                         </div>
@@ -222,7 +271,7 @@ export default function DatasetDetail() {
                     <div className="space-y-4">
                         <div className="flex justify-between items-center pb-4 border-b border-white/5">
                             <span className="text-white/70">License Fee</span>
-                            <span className="text-3xl font-bold text-white">
+                            <span className="text-3xl font-bold bg-gradient-to-r from-sky-400 to-blue-500 bg-clip-text text-transparent">
                                 ${dataset.price_per_license?.toLocaleString() || 0}
                             </span>
                         </div>
@@ -266,7 +315,7 @@ export default function DatasetDetail() {
                 <div className="flex gap-4">
                     <Button
                         onClick={() => router.push(`/company/license/${datasetId}`)}
-                        className="flex-1"
+                        className="flex-1 bg-white text-black hover:bg-white/90"
                         size="lg"
                     >
                         License This Dataset
