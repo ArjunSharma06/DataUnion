@@ -400,8 +400,8 @@ npm run dev
 
 | Team Member | Role | Contribution |
 |:-----------:|:----:|--------------|
-| **Yashasvi Pandey** | 💻 Full-Stack Developer | System architecture • Prototype • Main README • Roadmap planning |
-| **Daksh Jaitly** | 💻 Full-Stack Developer, Designer | System diagrams • Database design • Prototype • Technical documentation |
+| **Yashasvi Pandey** | 💻 Full-Stack Developer, Team Lead | System architecture • Prototype • Main README • Roadmap planning |
+| **Daksh Jaitly** | 💻 Full-Stack Developer, Designer | System design • Database design • Prototype • Technical documentation |
 | **Arjun Sharma** | 📊 Research Analyst, Designer | Market research • Regulatory analysis • Impact assessment |
 | **Shivansh Sharma** | Frontend Developer, 📊 Research Analyst | Main README • Roadmap planning • Designing |
 
