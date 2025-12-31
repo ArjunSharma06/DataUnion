@@ -251,6 +251,6 @@ Model Collapse → Sustainability
 
 <div align="center">
 
-[Back to Main README](README.md) | [Technical Documentation](TECHNICAL.md) | [Roadmap](ROADMAP.md)
+[Back to Main README](README.md) | [Technical Documentation](TECHNICAL.md) | [Phase 2 Implementation Plan](Phase2_Implementation_Plan.md)
 
 </div>

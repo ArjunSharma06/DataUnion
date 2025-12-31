@@ -28,7 +28,7 @@ Where contributors own their data • Companies get quality datasets • Everyon
 <p align="center">
   <a href="TECHNICAL.md">📐 Architecture</a> •
   <a href="RESEARCH.md">📊 Research</a> •
-  <a href="ROADMAP.md">🔮 Roadmap</a>
+  <a href="Phase2_Implementation_Plan.md">🔮 Phase 2 Implementation Plan</a>
 </p>
 
 
@@ -281,7 +281,7 @@ DataUnion/
 ├── 📄 README.md              ← You are here!
 ├── 📐 TECHNICAL.md           ← Architecture & diagrams
 ├── 📊 RESEARCH.md            ← Market analysis & regulations  
-├── 🚀 ROADMAP.md             ← Round 2 improvements
+├── 🚀 Phase2_Implementation_Plan.md             ← Round 2 improvements
 │
 ├── app/                      ← Next.js App Router
 │   ├── page.tsx             ← Landing page
@@ -360,7 +360,7 @@ npm run dev
 |:--------:|---------------
 | **[📐 TECHNICAL.md](TECHNICAL.md)** | System architecture • 4 detailed diagrams • Database schema • Scalability & security 
 | **[📊 RESEARCH.md](RESEARCH.md)** | Problem analysis • Regulatory landscape (GDPR, EU AI Act) • Market statistics • Case studies 
-| **[🚀 ROADMAP.md](ROADMAP.md)** | Round 2 features • Technical improvements • Scaling strategy • Timeline
+| **[🚀 Phase2_Implementation_Plan.md](Phase2_Implementation_Plan.md)** | Round 2 features • Technical improvements • Scaling strategy • Timeline
 
 </div>
 
@@ -444,7 +444,7 @@ This prototype validates the core concept. **For Round 2**, we're taking it to p
 
 <div align="center">
 
-**🔗 See complete roadmap:** [ROADMAP.md](ROADMAP.md)
+**🔗 See complete Implementation Plan:** [Phase2_Implementation_Plan.md](Phase2_Implementation_Plan.md)
 
 </div>
 
@@ -467,7 +467,7 @@ Powered by **Next.js** • **Supabase** • **Tailwind CSS** • The Open Source
   <a href="https://github.com/theDakshJaitly/DataUnion.git">⭐ Star on GitHub</a> •
   <a href="TECHNICAL.md">📐 View Architecture</a> •
   <a href="RESEARCH.md">📊 Read Research</a> •
-  <a href="ROADMAP.md">🚀 See Roadmap</a>
+  <a href="Phase2_Implementation_Plan.md">🚀 See Implementation Plan</a>
 </p>
 
 **Building an Ethical AI Future, One Dataset at a Time** ❤️
