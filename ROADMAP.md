@@ -43,10 +43,6 @@ Real user accounts enable persistent data, personalization, and secure transacti
 - **Consent versioning** to track changes over time
 - **Bulk consent updates** for power users
 
-**UI Improvements:**
-- Visual consent builder (drag-and-drop)
-- Consent templates for common scenarios
-- Real-time preview of data visibility
 
 ---
 
@@ -61,12 +57,7 @@ Real user accounts enable persistent data, personalization, and secure transacti
 - **Consistency checks** across related datasets
 - **Freshness metrics** (how recent is the data)
 - **Diversity analysis** (uniqueness, variance)
-- **Predictive quality** using historical patterns
 
-**Tech Stack:**
-- TensorFlow.js for client-side validation
-- Python microservice for heavy ML workloads
-- Redis for caching quality scores
 
 ---
 
@@ -98,11 +89,6 @@ Real user accounts enable persistent data, personalization, and secure transacti
  - **Dynamic payout calculation** (90/10 split logic)
  - **Projected earnings** forecasting for contributors
  - **ROI calculator** for companies
- 
- **Why Simulation?**
- - Focus on **economic logic** without regulatory overhead
- - Allows testing **different pricing models** safely
- - Demonstrates **fair value distribution** mechanics
 
 ---
 
@@ -122,18 +108,7 @@ Real user accounts enable persistent data, personalization, and secure transacti
 
 ---
 
-### 7. Community Feedback Loop
- 
- **Purpose:** Direct channel for user-developer interaction.
- 
- **Features:**
- - **In-App Feedback Widget:** Report bugs or suggest features directly.
- - **Public Roadmap Voting:** Users vote on what we build next.
- - **Discord Integration:** Real-time community support.
-
----
-
-### 8. Advanced Analytics & Insights
+### 7. Advanced Analytics & Insights
 
 **Contributor Dashboards:**
 - **Earnings trends** over time
@@ -147,29 +122,9 @@ Real user accounts enable persistent data, personalization, and secure transacti
 - **Usage forecasting**
 - **Competitive benchmarking**
 
-**Admin Analytics:**
-- **Platform health metrics** (transaction volume, user growth)
-- **Quality distribution** across datasets
-- **Fraud detection** alerts
-- **Revenue analytics**
 
 ---
 
-### 9. API & Integrations (Future Scope)
- 
- **Planned:**
- - **Developer API** for programmatic data access
- - **Hugging Face Integration** for direct model training
-
----
-
-### 10. Governance & Community Features
-
-**Community Features:**
- - **Feedback Board:** Public feature requests
- - **Bug Bounty:** Rewards for finding issues
-
----
 
 ## 🏗️ Technical Improvements
 
@@ -256,46 +211,6 @@ Real user accounts enable persistent data, personalization, and secure transacti
 
 ---
 
-## 🤝 Community & Ecosystem
-
-**Open Source Components:**
-- Quality scoring algorithms
-- Consent management UI library
-- API client SDKs
-
-**Partner Program:**
-- AI labs using ethically-sourced data
-- Data cooperatives aggregating contributors
-- Legal firms advising on compliance
-
-**Education:**
-- Blog posts on data rights
-- Webinars for contributors
-- Case studies with partner companies
-
----
-
-
-
-## 🌍 Long-Term Vision (Beyond Round 2)
-
-- **Mobile Ecosystem:** Native iOS/Android apps for real-time data capture.
-- **Federated Learning:** Train AI models on user devices to preserve absolute privacy.
-- **Community Ownership:** Transition platform governance to a user-owned cooperative.
-- **Vertical Expansion:** Specialized marketplaces for Healthcare, Finance, and Creative Arts.
-- **Universal API:** Become the standard "Data Layer" for the entire AI industry.
-
----
-
-## 📚 References & Inspiration
-
-- EU AI Act requirements for training data transparency
-- GDPR Article 22 (automated decision-making)
-
-- Streamr (real-time data marketplace)
-- Solid Project (decentralized data ownership)
-
----
 
 ## 🙋 Questions This Roadmap Answers
 
@@ -313,6 +228,6 @@ Real user accounts enable persistent data, personalization, and secure transacti
 
 
 
-[Back to Main README](../README.md) | [Architecture Docs](ARCHITECTURE.md) | [Research](RESEARCH.md)
+[Back to Main README](README.md) | [Architecture Docs](TECHNICAL.md) | [Research](RESEARCH.md)
 
 </div>

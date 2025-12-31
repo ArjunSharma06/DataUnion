@@ -108,7 +108,7 @@ export default function Home() {
           rangeY={800}
           particleCount={1000}
           baseHue={0}
-          variant="sine-wave"
+          variant="water-ripple"
           className="flex items-center justify-center px-2 md:px-10 w-full h-full"
         >
           <div className="text-center relative z-10 max-w-7xl mx-auto px-8 py-32">

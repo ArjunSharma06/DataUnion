@@ -105,34 +105,6 @@ DataUnion follows a modern web architecture with Next.js as the application laye
 
 ---
 
-## 📈 Scalability & Performance
-
-### Current Architecture Capabilities
-
-- **Concurrent Users:** Up to 1,000 simultaneous connections
-- **Database:** PostgreSQL with connection pooling
-- **API Response Time:** < 500ms (95th percentile)
-- **Static Assets:** Served via Vercel Edge Network
-- **Compute:** Serverless functions auto-scale with traffic
-
-### Bottlenecks & Solutions
-
-#### 1. Serverless Cold Starts
-**Solution:**
-- Vercel Edge Network for low-latency routing.
-- Lightweight runtime (Edge Functions) to minimize boot time.
-
-#### 2. AI Processing Latency
-**Solution:**
-- **Optimistic UI:** Show "Processing" state immediately.
-- **Client-Side Validation:** Pre-check data before upload to reduce server load.
-
-#### 3. Database Connection Limits
-**Solution:**
-- **Supavisor:** Supabase's built-in connection pooler manages spikes.
-- **Efficient Queries:** Indexing on `contributor_id` and `dataset_id`.
-
----
 
 ## 🔒 Security & Compliance
 

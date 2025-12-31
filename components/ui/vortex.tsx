@@ -15,7 +15,7 @@ interface VortexProps {
     baseRadius?: number;
     rangeRadius?: number;
     backgroundColor?: string;
-    variant?: "default" | "singularity" | "neural-web" | "concentric-circles" | "sine-wave";
+    variant?: "default" | "singularity" | "neural-web" | "concentric-circles" | "sine-wave" | "water-ripple";
 }
 
 export const Vortex = (props: VortexProps) => {
@@ -186,6 +186,24 @@ export const Vortex = (props: VortexProps) => {
 
             // Base flow is to the right (0 radians) + wave angle + slight noise
             n = wave + (noise * 0.1);
+        } else if (props.variant === "water-ripple") {
+            // Water Ripple Physics:
+            // Waves travel outwards from center: sin(distance * k - t * w)
+            const dx = x - center[0];
+            const dy = y - center[1];
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            // Wave parameters
+            const freq = 0.01;
+            const speed = 0.015;
+
+            // Calculate wave height based on radial distance
+            const wave = Math.sin(distance * freq - tick * speed) * 2;
+
+            // Add slight noise
+            const noise = noise3DRef.current(x * xOff, y * yOff, tick * zOff) * noiseSteps * TAU;
+
+            n = wave + (noise * 0.1);
         } else {
             n = noise3DRef.current(x * xOff, y * yOff, tick * zOff) * noiseSteps * TAU;
         }
@@ -206,6 +224,26 @@ export const Vortex = (props: VortexProps) => {
             vy = Math.cos(x * freq - tick * speedFactor) * 2;
 
             // Bypass lerp for immediate physics response
+            particleProps[i3] = vx;
+            particleProps[i4] = vy;
+        } else if (props.variant === "water-ripple") {
+            // Water Ripple Physics:
+            // Particles move ONLY up and down (vy), while the wave travels radially.
+
+            const dx = x - center[0];
+            const dy = y - center[1];
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            const freq = 0.01;
+            const speed = 0.015;
+
+            // vx is 0 (no horizontal movement)
+            vx = 0;
+
+            // vy oscillates based on the radial wave function
+            // Amplitude decays slightly with distance to mimic real ripples? Maybe keep it constant for style.
+            vy = Math.cos(distance * freq - tick * speed) * 2;
+
             particleProps[i3] = vx;
             particleProps[i4] = vy;
         } else {
