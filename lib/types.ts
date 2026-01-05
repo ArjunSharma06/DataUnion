@@ -9,6 +9,7 @@ export interface Contributor {
   average_quality_score: number; // 0-100
   total_earnings: number; // Simulated USD
   datasets: string[]; // Dataset IDs
+  age_group?: string;
 }
 
 export interface Dataset {

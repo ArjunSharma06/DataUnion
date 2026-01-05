@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Ubuntu } from "next/font/google";
 import "./globals.css";
+import SupabaseProvider from "@/components/providers/supabase-provider";
 
 const ubuntu = Ubuntu({
   variable: "--font-ubuntu",
@@ -26,7 +27,9 @@ export default function RootLayout({
       <body
         className={`${ubuntu.variable} antialiased`}
       >
-        {children}
+        <SupabaseProvider>
+          {children}
+        </SupabaseProvider>
       </body>
     </html>
   );

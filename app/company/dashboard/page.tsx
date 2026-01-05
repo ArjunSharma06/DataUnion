@@ -6,12 +6,13 @@ import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { CometCard } from '@/components/ui/comet-card';
 import { BackgroundGradient } from '@/components/ui/background-gradient';
-import { createClient } from '@/lib/supabase';
+import { useSupabase } from '@/components/providers/supabase-provider';
 import { StatCardSkeleton } from '@/components/ui/skeleton';
 import { SpendChart } from '@/components/dashboard/spend-chart';
 
 export default function CompanyDashboard() {
     const router = useRouter();
+    const { supabase, user } = useSupabase();
     const [companyName, setCompanyName] = useState('');
     const [licenses, setLicenses] = useState<any[]>([]);
     const [stats, setStats] = useState({
@@ -23,48 +24,54 @@ export default function CompanyDashboard() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const name = localStorage.getItem('company_name');
-        if (!name) {
-            router.push('/company/login');
-            return;
-        }
+        if (!user) return;
 
-        setCompanyName(name);
-        fetchDashboardData(name);
+        fetchDashboardData();
 
         // Refresh dashboard data when window regains focus (after licensing)
         const handleFocus = () => {
-            fetchDashboardData(name);
+            fetchDashboardData();
         };
 
         window.addEventListener('focus', handleFocus);
         return () => window.removeEventListener('focus', handleFocus);
-    }, [router]);
+    }, [user, router]); // eslint-disable-line react-hooks/exhaustive-deps
 
-    const fetchDashboardData = async (name: string) => {
+    const fetchDashboardData = async () => {
         try {
-            const supabase = createClient();
-
-            // Get FIRST matching company by name (ordered by created_at)
-            const { data: companies } = await supabase
+            // Get company by ID (Auth ID)
+            let { data: company, error: companyError } = await supabase
                 .from('companies')
                 .select('*')
-                .eq('name', name)
-                .order('created_at', { ascending: true })
-                .limit(1);
-
-            let company = companies?.[0];
+                .eq('auth_user_id', user!.id)
+                .maybeSingle();
 
             if (!company) {
-                const { data: newCompany } = await supabase
+                // Auto-create profile using metadata
+                const { data: newCompany, error: createError } = await supabase
                     .from('companies')
-                    .insert({ name, industry: 'Technology' })
+                    .insert({
+                        auth_user_id: user!.id,
+                        name: user!.user_metadata?.full_name || user!.email?.split('@')[0] || 'New Company',
+                        industry: 'Technology',
+                        total_spend: 0,
+                        email: user!.email
+                    })
                     .select()
                     .single();
-                company = newCompany;
+
+                if (createError) {
+                    console.error("Error creating company profile:", createError);
+                    router.push('/company/onboarding');
+                    return;
+                } else {
+                    company = newCompany;
+                }
             }
 
             if (company) {
+                setCompanyName(company.name || user!.user_metadata?.full_name || 'Company');
+
                 // Fetch licenses
                 const { data: licensesData } = await supabase
                     .from('licenses')
@@ -80,10 +87,10 @@ export default function CompanyDashboard() {
                 // Calculate stats
                 const totalLicenses = licensesData?.length || 0;
                 const totalSpend = company.total_spend || 0;
-                const uniqueDatasets = new Set(licensesData?.map((l) => l.dataset_id)).size;
+                const uniqueDatasets = new Set(licensesData?.map((l: any) => l.dataset_id)).size;
 
                 // Get unique contributors across all licensed datasets
-                const datasetIds = licensesData?.map((l) => l.dataset_id) || [];
+                const datasetIds = licensesData?.map((l: any) => l.dataset_id) || [];
                 let contributorsSupported = 0;
 
                 if (datasetIds.length > 0) {
@@ -92,7 +99,7 @@ export default function CompanyDashboard() {
                         .select('contributor_id')
                         .in('dataset_id', datasetIds);
 
-                    contributorsSupported = new Set(contributions?.map((c) => c.contributor_id)).size;
+                    contributorsSupported = new Set(contributions?.map((c: any) => c.contributor_id)).size;
                 }
 
                 setStats({
@@ -107,6 +114,11 @@ export default function CompanyDashboard() {
         } finally {
             setLoading(false);
         }
+    };
+
+    const handleSignOut = async () => {
+        await supabase.auth.signOut();
+        router.push('/');
     };
 
     const formatDate = (dateString: string) => {
@@ -144,9 +156,9 @@ export default function CompanyDashboard() {
                         className="absolute inset-0"
                         style={{
                             backgroundImage: `
-                linear-gradient(to right, #fff 1px, transparent 1px),
-                linear-gradient(to bottom, #fff 1px, transparent 1px)
-              `,
+                 linear-gradient(to right, #fff 1px, transparent 1px),
+                 linear-gradient(to bottom, #fff 1px, transparent 1px)
+               `,
                             backgroundSize: '60px 60px',
                         }}
                     ></div>
@@ -201,12 +213,9 @@ export default function CompanyDashboard() {
                     </Link>
                     <div className="flex items-center gap-4">
                         <span className="text-sm text-white/50">{companyName}</span>
-                        <Link
-                            href="/company/marketplace"
-                            className="text-sm text-white/70 hover:text-white transition-colors"
-                        >
-                            Marketplace
-                        </Link>
+                        <button onClick={handleSignOut} className="text-sm text-white/70 hover:text-white transition-colors cursor-pointer">
+                            Sign Out
+                        </button>
                     </div>
                 </div>
             </header>
@@ -218,11 +227,15 @@ export default function CompanyDashboard() {
                         COMPANY DASHBOARD
                     </h1>
                     <p className="text-white/50 text-lg">Welcome back, <span className="text-sky-400">{companyName}</span></p>
+                    <div className="mt-4">
+                        <Link
+                            href="/company/marketplace"
+                            className="text-sm text-white/70 hover:text-white transition-colors underline"
+                        >
+                            Go to Marketplace →
+                        </Link>
+                    </div>
                 </div>
-
-
-
-
 
                 {/* Stats Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
@@ -357,7 +370,7 @@ export default function CompanyDashboard() {
                         </div>
                     ) : (
                         <div className="space-y-4">
-                            {licenses.map((license) => (
+                            {licenses.map((license: any) => (
                                 <div
                                     key={license.license_id}
                                     className="bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all"

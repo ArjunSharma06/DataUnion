@@ -5,14 +5,17 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { CometCard } from '@/components/ui/comet-card';
 import { Badge } from '@/components/ui/badge';
-import { createClient } from '@/lib/supabase';
+import { useSupabase } from '@/components/providers/supabase-provider';
 import { StatCardSkeleton } from '@/components/ui/skeleton';
 import { ActivityChart } from '@/components/dashboard/activity-chart';
 import { BackgroundGradient } from '@/components/ui/background-gradient';
+import { ProfileSetupModal } from '@/components/dashboard/profile-setup-modal';
 
 export default function ContributorDashboard() {
     const router = useRouter();
+    const { supabase, user } = useSupabase();
     const [contributorName, setContributorName] = useState('');
+    const [showProfileModal, setShowProfileModal] = useState(false);
     const [stats, setStats] = useState({
         totalContributions: 0,
         datasetsPartOf: 0,
@@ -22,56 +25,80 @@ export default function ContributorDashboard() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Check if user is logged in
-        const name = localStorage.getItem('contributor_name');
-        if (!name) {
-            router.push('/contributor/login');
-            return;
-        }
-
-        setContributorName(name);
+        if (!user) return; // Middleware handles redirect normally, but just in case
 
         // Fetch contributor data
         const fetchDashboardData = async () => {
             try {
-                const supabase = createClient();
-
                 // Get or create contributor
-                const { data: contributor, error: contributorError } = await supabase
+                // Use auth_user_id to link with Supabase Auth
+                let { data: contributor, error: contributorError } = await supabase
                     .from('contributors')
                     .select('*')
-                    .eq('name', name)
+                    .eq('auth_user_id', user.id)
                     .maybeSingle();
 
                 if (contributorError) throw contributorError;
 
-                if (contributor) {
-                    // Fetch data contributions
-                    const { data: contributions } = await supabase
-                        .from('data_contributions')
-                        .select('*')
-                        .eq('contributor_id', contributor.contributor_id);
+                if (!contributor) {
+                    // Auto-create profile if doesn't exist
+                    const { data: newContributor, error: createError } = await supabase
+                        .from('contributors')
+                        .insert({
+                            auth_user_id: user.id,
+                            name: user.user_metadata?.full_name || user.email?.split('@')[0],
+                            email: user.email,
+                            total_earnings: 0
+                        })
+                        .select()
+                        .single();
 
-                    // Get unique datasets this contributor is part of
-                    const uniqueDatasets = new Set(
-                        contributions?.map(c => c.dataset_id) || []
-                    );
-
-                    // Calculate stats
-                    const totalContributions = contributions?.length || 0;
-                    const datasetsPartOf = uniqueDatasets.size;
-                    const avgQualityScore =
-                        contributions && contributions.length > 0
-                            ? contributions.reduce((sum, c) => sum + (c.quality_score || 0), 0) / contributions.length
-                            : 0;
-
-                    setStats({
-                        totalContributions,
-                        datasetsPartOf,
-                        avgQualityScore: avgQualityScore / 100, // Normalize to 0-1
-                        totalEarnings: contributor.total_earnings || 0,
-                    });
+                    if (createError) {
+                        console.error('Error creating contributor profile:', createError);
+                        // Fallback to onboarding if creation fails
+                        router.push('/contributor/onboarding');
+                        return;
+                    }
+                    contributor = newContributor;
                 }
+                // Check if profile is complete (has name)
+                const hasCompletedProfile = contributor.name && contributor.name !== user.email?.split('@')[0];
+
+                // If not complete, show modal
+                if (!hasCompletedProfile) {
+                    setShowProfileModal(true);
+                    // Set initial name prop if available
+                    setContributorName(contributor.name || user.user_metadata?.full_name || '');
+                } else {
+                    setContributorName(contributor.name);
+                }
+
+                // Fetch data contributions
+                // Assuming data_contributions has contributor_id foreign key
+                const { data: contributions } = await supabase
+                    .from('data_contributions')
+                    .select('*')
+                    .eq('contributor_id', contributor.contributor_id);
+
+                // Get unique datasets this contributor is part of
+                const uniqueDatasets = new Set(
+                    contributions?.map((c: any) => c.dataset_id) || []
+                );
+
+                // Calculate stats
+                const totalContributions = contributions?.length || 0;
+                const datasetsPartOf = uniqueDatasets.size;
+                const avgQualityScore =
+                    contributions && contributions.length > 0
+                        ? contributions.reduce((sum: number, c: any) => sum + (c.quality_score || 0), 0) / contributions.length
+                        : 0;
+
+                setStats({
+                    totalContributions,
+                    datasetsPartOf,
+                    avgQualityScore: avgQualityScore / 100, // Normalize to 0-1
+                    totalEarnings: contributor.total_earnings || 0,
+                });
             } catch (error) {
                 console.error('Error fetching dashboard data:', error);
             } finally {
@@ -80,7 +107,12 @@ export default function ContributorDashboard() {
         };
 
         fetchDashboardData();
-    }, [router]);
+    }, [user, supabase, router]);
+
+    const handleSignOut = async () => {
+        await supabase.auth.signOut();
+        router.push('/');
+    };
 
     if (loading) {
         return (
@@ -167,9 +199,9 @@ export default function ContributorDashboard() {
                     </Link>
                     <div className="flex items-center gap-4">
                         <Badge variant="default">{contributorName}</Badge>
-                        <Link href="/" className="text-sm text-white/50 hover:text-white transition-colors">
-                            Exit
-                        </Link>
+                        <button onClick={handleSignOut} className="text-sm text-white/50 hover:text-white transition-colors cursor-pointer">
+                            Sign Out
+                        </button>
                     </div>
                 </div>
             </header>
@@ -242,8 +274,6 @@ export default function ContributorDashboard() {
                     </div>
                 </div>
 
-
-
                 {/* Quick Actions */}
                 <div className="mb-12">
                     <h2 className="text-2xl font-bold text-white mb-6">Quick Actions</h2>
@@ -302,6 +332,15 @@ export default function ContributorDashboard() {
                     </div>
                 </div>
             </div>
-        </div>
+
+            <ProfileSetupModal
+                isOpen={showProfileModal}
+                currentName={contributorName}
+                onComplete={(name) => {
+                    setContributorName(name);
+                    setShowProfileModal(false);
+                }}
+            />
+        </div >
     );
 }

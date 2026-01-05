@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { CometCard } from '@/components/ui/comet-card';
 import { BackgroundGradient } from '@/components/ui/background-gradient';
-import { createClient } from '@/lib/supabase';
+import { useSupabase } from '@/components/providers/supabase-provider';
 import {
     DEMO_DATA_SAMPLES,
     DATA_TYPE_OPTIONS,
@@ -21,6 +21,7 @@ type Step = 'type-select' | 'demo-select' | 'custom-input' | 'review-terms' | 'c
 
 export default function ContributeData() {
     const router = useRouter();
+    const { supabase, user } = useSupabase();
     const [step, setStep] = useState<Step>('type-select');
     const [dataType, setDataType] = useState<'text' | 'sensor' | 'image' | null>(null);
     const [mode, setMode] = useState<'demo' | 'custom' | null>(null);
@@ -102,10 +103,7 @@ export default function ContributeData() {
         setLoading(true);
 
         try {
-            const supabase = createClient();
-            const contributorName = localStorage.getItem('contributor_name');
-
-            if (!contributorName) {
+            if (!user) {
                 router.push('/contributor/login');
                 return;
             }
@@ -114,13 +112,19 @@ export default function ContributeData() {
             let { data: contributor } = await supabase
                 .from('contributors')
                 .select('*')
-                .eq('name', contributorName)
+                .eq('auth_user_id', user.id)
                 .maybeSingle();
 
             if (!contributor) {
+                // Should have been created by dashboard, but just in case
                 const { data: newContributor } = await supabase
                     .from('contributors')
-                    .insert({ name: contributorName, total_earnings: 0 })
+                    .insert({
+                        auth_user_id: user.id,
+                        name: user.user_metadata?.full_name || user.email?.split('@')[0],
+                        email: user.email,
+                        total_earnings: 0
+                    })
                     .select()
                     .single();
                 contributor = newContributor;
