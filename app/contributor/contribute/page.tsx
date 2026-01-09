@@ -478,7 +478,7 @@ export default function ContributeData() {
 
                                 if (timestamps.length > 1) {
                                     // Check if timestamps are sequential numbers (or convertable to numbers)
-                                    const numericTimestamps = timestamps.map(t => new Date(t).getTime()).filter(t => !isNaN(t));
+                                    const numericTimestamps = timestamps.map((t: any) => new Date(t).getTime()).filter((t: number) => !isNaN(t));
 
                                     if (numericTimestamps.length > 1) {
                                         const intervals = [];
