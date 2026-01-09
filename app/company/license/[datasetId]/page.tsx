@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
+import { Select } from '@/components/ui/select';
 import { createClient } from '@/lib/supabase';
 import { distributeLicensePayout, calculatePayoutPreview } from '@/lib/payoutUtils';
 
@@ -231,21 +232,19 @@ export default function LicenseDataset() {
                         </p>
 
                         <div className="mb-6">
-                            <label className="block text-sm font-medium text-white/70 mb-2">
-                                Intended Use Case
-                            </label>
-                            <select
+                            <Select
+                                label="Intended Use Case"
                                 value={intendedUse}
                                 onChange={(e) => setIntendedUse(e.target.value)}
-                                className="w-full px-4 py-3 rounded-lg bg-white/[0.02] border border-white/10 text-white focus:outline-none focus:border-white/30"
-                            >
-                                <option value="">Select a use case...</option>
-                                <option value="AI Model Training">AI Model Training</option>
-                                <option value="Research & Development">Research & Development</option>
-                                <option value="Product Improvement">Product Improvement</option>
-                                <option value="Data Analysis">Data Analysis</option>
-                                <option value="Academic Research">Academic Research</option>
-                            </select>
+                                options={[
+                                    { value: '', label: 'Select a use case...' },
+                                    { value: 'AI Model Training', label: 'AI Model Training' },
+                                    { value: 'Research & Development', label: 'Research & Development' },
+                                    { value: 'Product Improvement', label: 'Product Improvement' },
+                                    { value: 'Data Analysis', label: 'Data Analysis' },
+                                    { value: 'Academic Research', label: 'Academic Research' },
+                                ]}
+                            />
                         </div>
 
                         <Button
