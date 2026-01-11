@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Ubuntu, Anton, Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import SupabaseProvider from "@/components/providers/supabase-provider";
+import { Analytics } from "@vercel/analytics/next";
 
 const ubuntu = Ubuntu({
   variable: "--font-ubuntu",
@@ -47,6 +48,7 @@ export default function RootLayout({
         <SupabaseProvider>
           {children}
         </SupabaseProvider>
+        <Analytics />
       </body>
     </html>
   );
