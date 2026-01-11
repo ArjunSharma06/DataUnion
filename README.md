@@ -27,8 +27,10 @@ Where contributors own their data • Companies get quality datasets • Everyon
 
 <p align="center">
   <a href="TECHNICAL.md">📐 Architecture</a> •
+  <a href="SCALABILITY AND FAILURE HANDLING.md">🚀 Scalability</a> •
+  <a href="FINANCE.md">💰 Finance</a> •
   <a href="RESEARCH.md">📊 Research</a> •
-  <a href="Phase2_Implementation_Plan.md">🔮 Phase 2 Implementation Plan</a>
+  <a href="Phase2_Implementation_Plan.md">🔮 Phase 2 Plan</a>
 </p>
 
 
@@ -41,6 +43,18 @@ Where contributors own their data • Companies get quality datasets • Everyon
 <div align="center">
 
 ### 🚀 [**Click Here to Try the Live Prototype**](https://data-union-three.vercel.app/)
+
+</div>
+
+<br>
+
+<div align="center">
+
+## 🎯 Round 2 Enhancements
+
+[![Round 2](https://img.shields.io/badge/Round_2-Fully_Functional-success?style=for-the-badge)](https://data-union-three.vercel.app/)
+
+**✨ New in Round 2:** Client-Side AI Quality Scoring • Advanced Financial Model • Failure Handling System • Comprehensive Scalability Strategy
 
 </div>
 
@@ -197,6 +211,102 @@ Where contributors own their data • Companies get quality datasets • Everyon
 </div>
 
 </details>
+
+<br>
+
+## 🆕 Round 2 Key Innovations
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 🧠 Client-Side AI Engine
+
+**Zero-Server Inference Architecture**
+
+- AI quality scoring runs entirely in the user's browser via Web Workers
+- **`@xenova/transformers`** (WASM-optimized language model)
+- 100 concurrent uploads with **0% server CPU increase**
+- Instant feedback (no network latency)
+
+**Quality Scoring Formula:**
+- Domain Relevance (35%)
+- Semantic Coherence (35%)  
+- Entity Density (20%)
+- Readability (10%)
+
+📐 *See [TECHNICAL.md](TECHNICAL.md) for architecture details*
+
+</td>
+<td width="50%" valign="top">
+
+### 💰 Advanced Financial Model
+
+**90/10 Revenue Split**
+
+- Contributors get **90%** of every license sale
+- Platform takes only **10%** (vs industry 50-60%)
+- Quality-weighted payout distribution
+- Atomic transactions + idempotency keys
+
+**Market Opportunity:**
+- Projected $17B market by 2032
+- Targeting high-value RLHF sector ($1,400-$56,000/domain)
+- Undercutting Scale AI's 50% take rate
+
+💰 *See [FINANCE.md](FINANCE.md) for full economic analysis*
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### 🛡️ Failure Handling System
+
+**Mission-Critical Resilience**
+
+**AI Engine Failure:**  
+→ Graceful degradation to server-side queue
+
+**Database Outage:**  
+→ Circuit breaker pattern, read-only mode
+
+**Transaction Failures:**  
+→ Atomic rollback, zero double-charges
+
+**Monitoring:**  
+→ Sentry, Supabase Logs, Vercel Analytics
+
+🚀 *See [SCALABILITY AND FAILURE HANDLING.md](SCALABILITY%20AND%20FAILURE%20HANDLING.md) for contingency plans*
+
+</td>
+<td width="50%" valign="top">
+
+### 📈 4-Phase Scalability Strategy
+
+**Growth Roadmap:**
+
+**Phase 1 (0-100 users):**  
+Single Supabase instance, client-side AI
+
+**Phase 2 (100-1K users):**  
+Connection pooling, edge caching
+
+**Phase 3 (1K-10K users):**  
+Read replicas, CDN, composite indices
+
+**Phase 4 (10K+ users):**  
+Sharding, geo-replication, async payouts
+
+**Target:** 99.5% uptime, <2s transaction latency
+
+🚀 *See [SCALABILITY AND FAILURE HANDLING.md](SCALABILITY%20AND%20FAILURE%20HANDLING.md) for phase details*
+
+</td>
+</tr>
+</table>
+
+<br>
 
 </div>
 
@@ -461,13 +571,25 @@ Powered by **Next.js** • **Supabase** • **Tailwind CSS** • The Open Source
 
 ---
 
+## 📄 Documentation Hub
+
+**Quick Links for Judges:**
+
+| Technical | Business | Planning |
+|:---------:|:--------:|:--------:|
+| [Architecture](TECHNICAL.md) | [Finance Model](FINANCE.md) | [Phase 2 Plan](Phase2_Implementation_Plan.md) |
+| [Scalability](SCALABILITY%20AND%20FAILURE%20HANDLING.md) | [Market Research](RESEARCH.md) | [Live Demo](https://data-union-three.vercel.app/) |
+
+---
+
 ### 🌟 Star this repo if you believe in ethical AI! 🌟
 
 <p>
   <a href="https://github.com/theDakshJaitly/DataUnion.git">⭐ Star on GitHub</a> •
   <a href="TECHNICAL.md">📐 View Architecture</a> •
-  <a href="RESEARCH.md">📊 Read Research</a> •
-  <a href="Phase2_Implementation_Plan.md">🚀 See Implementation Plan</a>
+  <a href="FINANCE.md">💰 View Finance</a> •
+  <a href="SCALABILITY AND FAILURE HANDLING.md">🚀 View Scalability</a> •
+  <a href="RESEARCH.md">📊 Read Research</a>
 </p>
 
 **Building an Ethical AI Future, One Dataset at a Time** ❤️
