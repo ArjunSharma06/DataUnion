@@ -1,3 +1,9 @@
+<div align="center">
+
+## 🚀 Live Demo - **[Try DataUnion Live →](https://data-union-three.vercel.app/)**
+
+</div>
+
 # 🚀 Scalability & Failure Handling Strategy
 
 This document outlines how DataUnion's specific architecture evolves to handle increasing loads, ensuring performance remains stable as we grow from a pilot to a global platform.
@@ -178,6 +184,6 @@ DataUnion implements defensive programming across three fault domains to ensure 
 
 <div align="center">
 
-[Back to Main README](README.md) | [Technical Docs](TECHNICAL.md) | [Research](RESEARCH.md) | [Finance](FINANCE.md) | [Phase 2 Plan](Phase2_Implementation_Plan.md)
+[Back to Main README](README.md) | [Technical Docs](TECHNICAL.md) | [Research](RESEARCH.md) | [Finance](FINANCE.md) | [Round 2 Updates](Round2%20Updates.md)
 
 </div>

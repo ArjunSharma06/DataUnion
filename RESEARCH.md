@@ -1,3 +1,9 @@
+<div align="center">
+
+## 🚀 Live Demo - **[Try DataUnion Live →](https://data-union-three.vercel.app/)**
+
+</div>
+
 # 📊 The Sovereign Data Crisis
 ## *Why DataUnion Is the Only Future-Proof Solution for AI Data Sourcing*
 
@@ -251,6 +257,6 @@ Model Collapse → Sustainability
 
 <div align="center">
 
-[Back to Main README](README.md) | [Technical Documentation](TECHNICAL.md) | [Phase 2 Implementation Plan](Phase2_Implementation_Plan.md)
+[Back to Main README](README.md) | [Technical Documentation](TECHNICAL.md) | [Finance](FINANCE.md) | [Scalability](SCALABILITY%20AND%20FAILURE%20HANDLING.md) | [Round 2 Updates](Round2%20Updates.md)
 
 </div>

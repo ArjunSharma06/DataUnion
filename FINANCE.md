@@ -1,3 +1,9 @@
+<div align="center">
+
+## 🚀 Live Demo - **[Try DataUnion Live →](https://data-union-three.vercel.app/)**
+
+</div>
+
 # Financial Model & Strategy
 
 > **Decentralized Infrastructure for Ethical AI Training Data**  
@@ -317,28 +323,15 @@ By leveraging decentralized provenance and equitable contributor compensation, t
 
 ---
 
-## Additional Documentation
-
-This document focuses on **financial modeling and strategic positioning**. For comprehensive information on other aspects of the Data Union Platform, please refer to:
-
-<div align="center">
-
-| Document | Description | Link |
-|:--------:|-------------|:----:|
-| **README** | Platform overview, features, tech stack, and quick start guide | [README.md](README.md) |
-| **RESEARCH** | Market analysis, regulatory landscape, crisis drivers, and case studies | [RESEARCH.md](RESEARCH.md) |
-| **TECHNICAL** | System architecture, database schema, scalability, and security | [TECHNICAL.md](TECHNICAL.md) |
-| **PHASE 2 PLAN** | Round 2 roadmap, advanced features, and implementation timeline | [Phase2_Implementation_Plan.md](Phase2_Implementation_Plan.md) |
-
-</div>
-
----
-
 <div align="center">
 
 **Building the Central Bank of the Sovereign Data Economy**
 
 [![License](https://img.shields.io/badge/License-Proprietary-red)]()
 [![Status](https://img.shields.io/badge/Status-Strategic_Blueprint-blue)]()
+
+---
+
+[Back to Main README](README.md) | [Technical Documentation](TECHNICAL.md) | [Scalability](SCALABILITY%20AND%20FAILURE%20HANDLING.md) | [Research](RESEARCH.md) | [Round 2 Updates](Round2%20Updates.md)
 
 </div>

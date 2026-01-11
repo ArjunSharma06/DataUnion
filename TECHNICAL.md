@@ -1,3 +1,9 @@
+<div align="center">
+
+## 🚀 Live Demo - **[Try DataUnion Live →](https://data-union-three.vercel.app/)**
+
+</div>
+
 # 📐 Technical Documentation
 
 
@@ -302,6 +308,10 @@ The UI follows a strict "Edge Gradient" philosophy, avoiding generic full-screen
 - **Supabase Logs**: Database query analysis and auth logs.
 - **Runtime Logs**: Server-side application logs via Vercel.
 
----
 
-**Back to:** [Main README](README.md) | [Research](RESEARCH.md) | [Phase 2 Implementation Plan](Phase2_Implementation_Plan.md)
+<div align="center">
+
+[Back to Main README](README.md) | [Finance](FINANCE.md) | [Scalability](SCALABILITY%20AND%20FAILURE%20HANDLING.md) | [Research](RESEARCH.md) | [Round 2 Updates](Round2%20Updates.md)
+
+</div>
+
