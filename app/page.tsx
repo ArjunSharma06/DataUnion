@@ -43,7 +43,7 @@ export default function Home() {
                     <span className="text-xl font-bold tracking-tighter text-white mix-blend-difference">DataUnion</span>
                 </div>
                 <nav className="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide opacity-80 mix-blend-difference">
-                    <Link href="/about" className="hover:text-white/80 transition-colors">MANIFESTO</Link>
+                    <Link href="/about" className="hover:text-white/80 transition-colors">ABOUT</Link>
                     <Link href="/research" className="hover:text-white/80 transition-colors">RESEARCH</Link>
                     <Link href="/contact" className="hover:text-white/80 transition-colors">CONTACT</Link>
                 </nav>
