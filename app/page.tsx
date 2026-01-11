@@ -58,14 +58,14 @@ export default function Home() {
 
             {/* Massive Staggered Hero Tagline */}
             <div className="absolute inset-0 z-0 hidden md:flex flex-col justify-center px-20 pointer-events-none select-none overflow-hidden pb-32">
-                <h1 className="text-[10vw] font-space-grotesk font-light text-white/40 tracking-tighter leading-none self-start transform -translate-y-16">
+                <h1 className="text-[10vw] font-space-grotesk font-light text-transparent bg-clip-text bg-gradient-to-br from-white/80 via-white/10 to-white/80 tracking-tighter leading-none self-start transform -translate-y-16 opacity-80 mix-blend-overlay">
                     OWN
                 </h1>
                 <div className="self-end flex items-start gap-[2vw] transform -translate-y-4">
-                    <h1 className="text-[10vw] font-space-grotesk font-light text-white/40 tracking-tighter leading-none">
+                    <h1 className="text-[10vw] font-space-grotesk font-light text-transparent bg-clip-text bg-gradient-to-br from-white/80 via-white/10 to-white/80 tracking-tighter leading-none opacity-80 mix-blend-overlay">
                         YOUR
                     </h1>
-                    <h1 className="text-[10vw] font-space-grotesk font-light text-white/40 tracking-tighter leading-none pt-[2vw]">
+                    <h1 className="text-[10vw] font-space-grotesk font-light text-transparent bg-clip-text bg-gradient-to-br from-white/80 via-white/10 to-white/80 tracking-tighter leading-none pt-[2vw] opacity-80 mix-blend-overlay">
                         DATA
                     </h1>
                 </div>
@@ -81,7 +81,7 @@ export default function Home() {
                     onMouseEnter={() => setActiveTheme('emerald')}
                     onMouseLeave={() => setActiveTheme('magma')}
                 >
-                    <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
 
                     <div className="relative z-10">
                         <div className="mb-4 overflow-hidden">
@@ -112,7 +112,7 @@ export default function Home() {
                     onMouseEnter={() => setActiveTheme('blue')}
                     onMouseLeave={() => setActiveTheme('magma')}
                 >
-                    <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
 
                     <div className="relative z-10">
                         <div className="mb-4 overflow-hidden">
@@ -143,7 +143,7 @@ export default function Home() {
                     onMouseEnter={() => setActiveTheme('magma')}
                     onMouseLeave={() => setActiveTheme('magma')}
                 >
-                    <div className="absolute inset-0 bg-gradient-to-t from-red-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
 
                     <div className="relative z-10">
                         <div className="mb-4 overflow-hidden">
